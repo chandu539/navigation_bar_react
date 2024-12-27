@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
+import Login from './Components/Login';
+
+
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,7 +28,9 @@ function App() {
           <input type="text" placeholder="Search..." />
         </div>
       </nav>
+      <Login/>
     </div>
+    
   );
 }
 
