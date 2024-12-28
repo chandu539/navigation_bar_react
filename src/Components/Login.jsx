@@ -1,128 +1,97 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Login.css';
+import { useFormik } from 'formik';
 
 function Login() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    mobile: ''
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      mobile: ""
+    },
+    validate: (values) => {
+      let errors = {};
+      //name validation
+      //i was mention requied in input tag
+      
+      // Email validation
+       if (!/\S+@\S+\.\S+/.test(values.email)) {
+        errors.email = "Email must be in a valid format";
+      }
+      
+      // Mobile number validation
+       if (!/^[789]\d{9}$/.test(values.mobile)) {
+        errors.mobile = "Mobile number must start with 7, 8, or 9 and be 10 digits long";
+      }
+      
+      // Password validation
+      if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/g.test(values.password)) {
+        errors.password = "Password must contain 1 uppercase, 1 lowercase, 1 number, and 1 special character";
+      }
+      
+      return errors;
+    },
+    onSubmit: (values) => {
+      alert("Form submitted successfully!");
+      console.log('Form values', values);
+    }
   });
-
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const newErrors = {};
-
-    // Name validation
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required.';
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) {
-      newErrors.email = 'Email is required.';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Email is not valid.';
-    }
-
-    // Password validation
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!formData.password) {
-      newErrors.password = 'Password is required.';
-    } else if (!passwordRegex.test(formData.password)) {
-      newErrors.password =
-        'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
-    }
-
-    // Mobile validation
-    const mobileRegex = /^[789]\d{9}$/;
-    if (!formData.mobile) {
-      newErrors.mobile = 'Mobile number is required.';
-    } else if (!mobileRegex.test(formData.mobile)) {
-      newErrors.mobile =
-        'Mobile number must start with 7, 8, or 9 and be 10 digits long.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      alert('Form submitted successfully!');
-      // Submit form logic here
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   return (
     <div className="table">
-      <form className="login_form" onSubmit={handleSubmit}>
+      <form className="login_form" onSubmit={formik.handleSubmit}>
         <h1>Login Form</h1>
-
-        {/* Name */}
+        
         <label htmlFor="name">Name</label>
         <input
           type="text"
-          id="name"
           name="name"
+          id="name"
           placeholder="Enter the name"
-          value={formData.name}
-          onChange={handleChange}
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          required
         />
-        {errors.name && <p className="error">{errors.name}</p>}
-        <br />
-
-        {/* Email */}
+        {formik.errors.name ? <div className="errors">{formik.errors.name}</div> : null}
+        
         <label htmlFor="email">Email</label>
         <input
           type="email"
-          id="email"
           name="email"
+          id="email"
           placeholder="Enter the email"
-          value={formData.email}
-          onChange={handleChange}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          required
         />
-        {errors.email && <p className="error">{errors.email}</p>}
-        <br />
-
-        {/* Password */}
+        {formik.errors.email ? <div className="errors">{formik.errors.email}</div> : null}
+        
         <label htmlFor="password">Password</label>
         <input
           type="password"
-          id="password"
           name="password"
+          id="password"
           placeholder="Enter the password"
-          value={formData.password}
-          onChange={handleChange}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          required
         />
-        {errors.password && <p className="error">{errors.password}</p>}
-        <br />
-
-        {/* Mobile */}
+        {formik.errors.password ? <div className="errors">{formik.errors.password}</div> : null}
+        
         <label htmlFor="mobile">Mobile</label>
         <input
           type="tel"
-          id="mobile"
           name="mobile"
+          id="mobile"
           placeholder="Enter the mobile number"
-          value={formData.mobile}
-          onChange={handleChange}
+          value={formik.values.mobile}
+          onChange={formik.handleChange}
+          required
         />
-        {errors.mobile && <p className="error">{errors.mobile}</p>}
-        <br />
-
-        {/* Submit Button */}
-        <button className="button" type="submit">
-          Submit
-        </button>
+        {formik.errors.mobile ? <div className="errors">{formik.errors.mobile}</div> : null}
+        
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
