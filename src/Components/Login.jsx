@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login.css';
+import './Login.css'
 import { useFormik } from 'formik';
 
 function Login() {
@@ -8,6 +8,7 @@ function Login() {
       name: "",
       email: "",
       password: "",
+      confirm_password:"",
       mobile: ""
     },
     validate: (values) => {
@@ -30,11 +31,15 @@ function Login() {
         errors.password = "Password must contain 1 uppercase, 1 lowercase, 1 number, and 1 special character";
       }
       
+      if(values.confirm_password !== values.password){
+        errors.confirm_password = "Password must same";
+      }
       return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: (values , {resetForm}) => {
       alert("Form submitted successfully!");
       console.log('Form values', values);
+      resetForm();
     }
   });
 
@@ -79,6 +84,20 @@ function Login() {
         />
         {formik.errors.password ? <div className="errors">{formik.errors.password}</div> : null}
         
+
+        <label htmlFor="confirm_password">Confirm Password</label>
+        <input
+          type="password"
+          name="confirm_password"
+          id="confirm_password"
+          placeholder="Enter the password"
+          value={formik.values.confirm_password}
+          onChange={formik.handleChange}
+          required
+        />
+        {formik.errors.confirm_password? <div className="errors">{formik.errors.confirm_password}</div> : null}
+
+
         <label htmlFor="mobile">Mobile</label>
         <input
           type="tel"

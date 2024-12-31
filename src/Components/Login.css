@@ -52,9 +52,13 @@ background-color:azure;
     background-color: #2e7d32;
 }
 
-.error {
+.errors {
     color: red;
-    font-size: 0.9em;
+    font-size: 12px;
     margin-top: 5px;
+  }
+  
+  .input-error {
+    border: 1px solid red;
   }
   

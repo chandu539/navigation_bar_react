@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+}
+.box{
+    display: flex;
+    justify-content: center;
+    
+}    
+.header {
+    text-align: center;
+    margin:0;
+    
+  }
+  .box button{
+    justify-content: space-around;
+   margin: 0 10px;
+
+    
+  }
+  .header h1 {
+    margin: 0;
+    display: block; 
+    padding:0;
+    margin-bottom: 10px;
+  }
+            
+.btn_form {
+    display: block;
+    justify-content:center;
+    flex-wrap: wrap;
+    gap: 20px; 
+}
+.btn_form button {
+    margin-top: 20px;
+    width: 10vw; 
+    height: 10vh; 
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border:1px solid white;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease; 
+}
+.button_form button:hover {
+    transform: scale(1.2); 
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+.pink {
+    background-color: pink;
+    color: black; 
+}
+.purple {
+    background-color: purple;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.gold {
+    background-color: gold;
+    color: black;
+}
+
+.grey {
+    background-color: grey;
+}
+.silver{
+    background-color:silver;
+    
+}
